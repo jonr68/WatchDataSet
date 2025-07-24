@@ -42,13 +42,32 @@ fig.add_trace(go.Bar(
     name='Lightly Active',
     marker_color='pink'
 ))
-fig.update_layout(barmode='group', xaxis_tickangle=-45)
-# print(data["Day"].head())
+
+day = data["Day"].value_counts()
+label = day.index
+counts = data["SedentaryMinutes"]
+colors = ['gold','lightgreen', "pink", "blue", "skyblue", "cyan", "orange"]
+
+fig = go.Figure(data=[go.Pie(labels=label, values=counts)])
+fig.update_layout(title_text='Inactive Minutes Daily')
+fig.update_traces(hoverinfo='label+percent', textinfo='value', textfont_size=30,
+                  marker=dict(colors=colors, line=dict(color='black', width=3)))
+
+calories = data["Day"].value_counts()
+label = calories.index
+counts = data["Calories"]
+colors = ['gold','lightgreen', "pink", "blue", "skyblue", "cyan", "orange"]
+
+fig = go.Figure(data=[go.Pie(labels=label, values=counts)])
+fig.update_layout(title_text='Calories Burned Daily')
+fig.update_traces(hoverinfo='label+percent', textinfo='value', textfont_size=30,
+                  marker=dict(colors=colors, line=dict(color='black', width=3)))
 fig.show()
-# figure.show()
+# fig.update_layout(barmode='group', xaxis_tickangle=-45)
+# print(data["Day"].head())
 # print(data.head())
 # print(data.isnull().sum())
 # print(data.info())
 # print(data["TotalMinutes"].sample(5))
 # print(data.describe())
-test
+
